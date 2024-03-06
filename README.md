@@ -1,32 +1,27 @@
 # BilişimTireni
--[BilişimTireni](https://bilisimtireni.org) Projesi Baştan Aşşağıya Özel Gereksinimli Çocukların/Öğrencilerin Bilişim Derslerini En İyi Şekilde Geçirmelerini Sağlaması İçin Tasarlandı.
-## Ana Amacı 
-Özel Gerekisinimli Öğrencilerin Bilişim Derslerini Kolaylaştırmak İçin Şuanlık Bir Program ve Yardımcı Olacak Bir Şey Olmadığından Dolayı Bu Boşluğu Kapatmak İçin Tasarlandı Diyebiliriz.
+
+[BilişimTireni](https://bilisimtireni.org) projesi, özel gereksinimli çocukların ve öğrencilerin bilişim teknolojileri derslerini daha etkin ve verimli bir şekilde geçirmelerini sağlamak için özel olarak tasarlanmıştır. Eğitimde fırsat eşitliği ilkesinden yola çıkarak, her çocuğun bilişim dünyasına adım atmasını kolaylaştırma hedefiyle yola çıkmıştır.
+
+## Ana Amacımız
+
+Özel gereksinimli çocuklar ve öğrenciler, tüm bireyler gibi eğitimde eşit fırsatlara sahip olmalıdır. BilişimTireni, bu çocukların eğitim materyallerine erişimini kolaylaştırmak, onların bilişim teknolojilerini daha iyi anlamalarını ve kullanmalarını sağlamak için hazırlanmıştır.
+
 ## İçindekiler
 
 - [Hakkında](#hakkında)
 - [Özellikler](#özellikler)
-- [Başlarken](#başlarken)
-  - [Kurulum](#kurulum)
   - [Kullanım](#kullanım)
 - [Katkıda Bulunma](#katkıda-bulunma)
 - [Lisans](#lisans)
 
 ## Hakkında
 
-Projenin detaylı açıklaması. Projenin ne yaptığını, amacını ve önemini açıklayın.
+BilişimTireni, özel gereksinimli çocukların bilişim teknolojilerini öğrenme süreçlerini destekleyen bir projedir. Amacımız, bu çocukların sosyal ve eğitim hayatlarında aktif rol alabilmeleri için gerekli dijital becerileri kazanmalarına yardımcı olmaktır.
 
 ## Özellikler
 
-- Projenin temel özelliklerini listele
-- Projeyi benzersiz kılan özellikleri vurgula
-
-## Başlarken
-
-Projenin yerel makinede çalıştırılması için adımlar.
-
-### Kurulum
-
-1. Depoyu klonlayın.
-   ```sh
-   git clone https://github.com/kullanıcıadı/repo.git
+- Etkileşimli ve kullanıcı dostu arayüz
+- Çeşitli zorluk seviyelerine uygun eğitim içerikleri
+- Görsel ve işitsel öğrenme materyalleri
+- Eğitimciler ve veliler için izleme ve raporlama araçları
+- Özel Gereksinimli Çocukların Anlayabileceği Düzeyde ve Onların Eğtiim Zorluklarını Düşünen Sistem içerir.
