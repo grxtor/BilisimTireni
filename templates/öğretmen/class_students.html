@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ class_name }} Sınıfı Öğrencileri</title>
+    <!-- Bootstrap CSS ve LINEARICONS -->
+
+
+    <!-- Custom CSS -->
+
+
+</head>
+<body>
+    <!-- Menü -->
+    {% include 'öğretmen/base.html' %}
+
+    <div class="container">
+        <h1 class="text-center">{{ class_name }} Sınıfı Öğrencileri</h1>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>İsim</th>
+                    <th>TC No</th>
+                    <th>Öğrenci No</th>
+                    <th>İşlemler</th> <!-- İşlemler sütunu eklendi -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                    <tr>
+                        <td>{{ student[0] }}</td>
+                        <td>{{ student[5] }}</td>
+                        <td>{{ student[2] }}</td>
+                        <td>{{ student[4] }}</td>
+                        <td>
+                            <!-- Silme butonu satıra eklendi -->
+                            <form action="/delete_student/{{ student[0] }}" method="POST">
+                                <button type="submit" class="btn btn-danger delete-button">Sil</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/dashboard" class="btn btn-primary">Dashboard'a Dön</a>
+    </div>
+
+    <!-- Bootstrap JS ve bağımlılıkları -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

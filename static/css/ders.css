@@ -1,0 +1,65 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #333;
+    height: 100vh;
+    padding: 10px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.menu-item {
+    display: block;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.menu-item:hover {
+    background-color: #007bff;
+    margin-left: 10px;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.container {
+    max-width: 50%; /* Video konteynerinin genişliği */
+    margin: auto;
+    text-align: center;
+}
+
+.video-box {
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+video {
+    width: 100%;
+    height: auto;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+

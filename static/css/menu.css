@@ -1,0 +1,51 @@
+/* Menü için temel stillendirme */
+.navbar {
+    background-color: #ff5100; /* Menü arka plan rengi */
+    color: white;
+}
+
+.navbar-brand {
+    color: white; /* Logo yazı rengi */
+}
+
+.navbar-brand:hover {
+    color: #ddd; /* Logo yazı rengi, üzerine gelindiğinde */
+}
+
+.navbar-nav .nav-link {
+    color: white; /* Menü öğesi yazı rengi */
+    margin-right: 15px; /* Menü öğeleri arası boşluk */
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ddd; /* Menü öğesi yazı rengi, üzerine gelindiğinde */
+}
+
+.navbar-toggler {
+    border-color: #ddd; /* Mobil menü butonu çerçeve rengi */
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,..."); /* Mobil menü simgesi için SVG veya resim yolu */
+}
+
+/* Menüyü ekran genişliğine göre düzenleme */
+@media (max-width: 576px) {
+    .navbar-nav .nav-item {
+        margin-bottom: 10px; /* Mobil görünümde menü öğeleri arası boşluk */
+    }
+
+    .navbar-nav {
+        text-align: center; /* Mobil görünümde menü öğelerini ortala */
+    }
+}
+
+/* Menü alt çizgisi */
+.navbar::after {
+    content: '';
+    display: block;
+    height: 2px;
+    background-color: #fff; /* Alt çizgi rengi */
+    width: 80%; /* Alt çizgi genişliği */
+    margin: 0 auto; /* Alt çizgiyi ortala */
+}

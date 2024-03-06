@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Student</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Edit Student</h2>
+        <form action="/edit_student/{{ student.id }}" method="post">
+            <div class="form-group">
+                <label for="studentName">Student Name:</label>
+                <input type="text" class="form-control" id="studentName" name="studentName" value="{{ student.student_name }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="tcNo">TC No:</label>
+                <input type="text" class="form-control" id="tcNo" name="tcNo" value="{{ student.tc_no }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="parentPhone">Parent Phone:</label>
+                <input type="text" class="form-control" id="parentPhone" name="parentPhone" value="{{ student.parent_phone }}">
+            </div>
+
+            <div class="form-group">
+                <label for="studentNo">Student No:</label>
+                <input type="text" class="form-control" id="studentNo" name="studentNo" value="{{ student.student_no }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="className">Class Name:</label>
+                <input type="text" class="form-control" id="className" name="className" value="{{ student.class_name }}" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Öğrenci Girişi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- LINEARICONS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fonts/linearicons/style.css') }}"> 
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- MENÜ CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet"> 
+   
+   
+</head>
+<style>
+    body, h3, button, input { /* Yazı tipini güncelleyen CSS */
+        font-family: 'Montserrat', sans-serif;
+    }
+</style>
+<body>
+    
+    <div class="wrapper">
+        <div class="inner">
+            <form method="POST" action="/student_login">
+                <h3>Öğrenci Girişi</h3>
+                <div class="form-holder">
+                    <span class="lnr lnr-user"></span>
+                    <input type="text" class="form-control" placeholder="TC Kimlik Numarası" id="tc_no" name="tc_no" required>
+                </div>
+                <div class="form-holder">
+                    <span class="lnr lnr-graduation-hat"></span>
+                    <input type="text" class="form-control" placeholder="Öğrenci Numarası" id="student_no" name="student_no" required>
+                </div>
+                <button type="submit">
+                    <span>Giriş Yap</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</body>
+</html>

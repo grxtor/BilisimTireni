@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Sınıf Ekleme Formu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- LINEARICONS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fonts/linearicons/style.css') }}"> 
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- MENÜ CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+</head>
+<body>
+    <!-- Menü -->
+    {% include 'öğretmen/base.html' %}
+    
+    <div class="wrapper">
+        <div class="inner">
+            <form action="/add_class" method="POST">
+                <h3>Sınıf Ekle</h3>
+                <div class="form-holder">
+                    <span class="lnr lnr-home"></span>
+                    <input type="text" class="form-control" placeholder="Sınıf Adı" name="class_name" required>
+                </div>
+                <div class="form-holder">
+                    <span class="lnr lnr-pencil"></span>
+                    <textarea class="form-control" placeholder="Sınıf Açıklaması" name="class_description"></textarea>
+                </div>
+                <button type="submit">
+                    <span>Ekle</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

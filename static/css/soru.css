@@ -1,0 +1,103 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    
+}
+
+.content {
+    margin: 0 auto; /* İçeriği yatay eksende ortalar */
+    padding: 15px; /* İç boşluk */
+    max-width: 1200px; /* Maksimum genişlik */
+}
+
+
+.image-button {
+    background-color: #f0f0f0; /* Buton arka plan rengi */
+    border: 2px solid #ddd; /* Buton çerçevesi */
+    padding: 10px; /* İç boşluk */
+    border-radius: 10px; /* Kenar yuvarlaklığı */
+    margin: 20px; /* Dış boşluk */
+    cursor: pointer; /* İmleç */
+    display: inline-block; /* Butonların yan yana gelmesi */
+}
+
+.image-button img {
+    width: 100px; /* Resim genişliği */
+    height: auto; /* Resim yüksekliği otomatik ayarlanır */
+}
+
+.image-button:hover {
+    background-color: #e0e0e0; /* Hover durumunda arka plan rengi */
+    border-color: #ccc; /* Hover durumunda çerçeve rengi */
+}
+
+.test-container {
+    position: center;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 80%;
+    max-width: 600px;
+
+    overflow: hidden; /* Taşan içeriği kes */
+}
+
+.test-questions {
+    margin-bottom: 20px;
+}
+
+.test-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.test-button:hover {
+    background-color: #0056b3;
+}
+
+.finish-button {
+    background-color: #28a745;
+}
+
+.finish-button:hover {
+    background-color: #218838;
+}
+
+.sound-button {
+    position: absolute;
+    top: +20px; /* Adjust top position as needed */
+    right: +10px; /* Adjust right position as needed */
+    font-size: 50px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.question-header {
+    position: absolute;
+    top: 0;
+    right: 00;
+}
+
+.video-container {
+    position: absolute;
+    bottom: 50px; /* Alt kısımdan boşluk */
+    right: 10px; /* Sağ kısımdan boşluk */
+    width: 200px; /* Video genişliği */
+    height: auto; /* Video yüksekliği otomatik olarak ayarlanacak */
+    border-radius: 8px;
+}
+
+video {
+    width: 40%;
+    height: 40%;
+}
+
+
+
+

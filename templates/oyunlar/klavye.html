@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klavye Yazma Oyunu</title>
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        .menu-item.sınavlar {
+            background: url('/static/images/vagon2.png') no-repeat center left; /* Arka plan resmini sola hizala */
+            background-size: 20%; /* Arka plan resminin boyutunu ayarla */
+            display: flex;
+            align-items: center;
+            height: 60px;
+            font-size: 14px;
+            text-shadow: 1px 1px 2px #000;
+            border-radius: 5px;
+            margin: 5px 0; /* Üst ve alt marjin */
+            padding-left: 60px; /* İkon ve metin arasındaki boşluğu ayarla */
+        }
+        .sidebar {
+            background-color: #ff8c00;
+            color: #fff;
+            padding: 20px;
+            min-height: 100vh;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .profile-pic {
+            background-size: cover;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            margin: 20px auto;
+        }
+        .menu-item {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .menu-item:hover, .menu-item.active {
+            background-color: #ff7f00;
+        }
+        .menu-icon {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+        .content, #game {
+            margin-left: 270px;
+            padding: 20px;
+            max-width: calc(100% - 290px);
+            height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
+        #game {
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            text-align: center;
+            padding-bottom: 20px;
+        }
+        #word-container {
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .highlight {
+            background-color: #a7c7e7;
+        }
+        #user-input {
+            font-size: 1.2em;
+            padding: 10px;
+            width: calc(100% - 24px);
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        #user-input:focus {
+            border-color: #80bdff;
+            outline: none;
+        }
+        #feedback {
+            font-size: 1.2em;
+            color: #31708f;
+            height: 30px;
+        }
+        #timer {
+            font-size: 1.5em;
+            color: #333;
+            margin-top: 20px;
+        }
+        select, button {
+            margin-top: 10px;
+        }
+        .correct {
+            color: #28a745;
+        }
+        .wrong {
+            color: #dc3545;
+        }
+        audio {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="profile-pic">
+        </div>
+        <div>
+            <h2>{{ student_info['student_name'] }}</h2>
+            <p>{{ student_info['school_name'] }}</p>
+            <p>Puan: {{ student_info['points'] }}</p>
+        </div>
+        <a href="#" class="menu-item sınavlar">Sayfam</a>
+        <a href="/testler" class="menu-item sınavlar">Sınavlar</a>
+    </div>
+    <div id="game" class="content">
+        <div id="word-container">
+            <span id="current-word" class="highlight"></span>
+            <span id="next-words"></span>
+        </div>
+        <input type="text" id="user-input" placeholder="Buraya yazın...">
+        <div id="feedback"></div>
+        <div id="timer">1:00</div>
+        <select id="time-select">
+            <option value="1">1 Dakika</option>
+            <option value="2">2 Dakika</option>
+            <option value="3">3 Dakika</option>
+        </select>
+        <button id="start-button">Başlat</button>
+        <form id="test-result-form" style="display: none;" action="/submit_test" method="post">
+            <input type="hidden" name="score" id="score">
+            <input type="submit" value="Testi Gönder">
+        </form>
+    </div>
+
+
+    <audio id="correctSound" src="sounds/correct.mp3"></audio>
+    <audio id="wrongSound" src="sounds/wrong.mp3"></audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentWordElement = document.getElementById('current-word');
+            const nextWordsElement = document.getElementById('next-words');
+            const userInput = document.getElementById('user-input');
+            const feedback = document.getElementById('feedback');
+            const timerElement = document.getElementById('timer');
+            const startButton = document.getElementById('start-button');
+            const timeSelect = document.getElementById('time-select'); 
+            const testResultForm = document.getElementById('test-result-form'); 
+
+            let sentences = [
+                "top renkli arabaya çarptı",
+                "kedi ağacın üzerinde uyudu",
+                "gökyüzü bugün çok mavi",
+                "arkadaşlar parkta futbol oynadı"
+                // Daha fazla cümle ekleyebilirsiniz.
+            ];
+            let currentSentence = [];
+            let currentWordIndex = 0;
+            let timer = 60;
+            let timerInterval = null;
+            let score = 0;
+
+            function pickNewSentence() {
+                if (sentences.length > 0) {
+                    const sentenceIndex = Math.floor(Math.random() * sentences.length);
+                    currentSentence = sentences[sentenceIndex].split(" ");
+                    sentences.splice(sentenceIndex, 1); 
+                    currentWordIndex = 0;
+                    updateDisplay();
+                } else {
+                    endGame();
+                }
+            }
+
+            function updateDisplay() {
+                currentWordElement.textContent = currentSentence[currentWordIndex];
+                nextWordsElement.textContent = currentSentence.slice(currentWordIndex + 1).join(" ");
+                feedback.textContent = "";
+                userInput.className = "";
+            }
+
+            function checkInput() {
+                const userInputValue = userInput.value.trim();
+                if (userInputValue === currentSentence[currentWordIndex]) {
+                    score += 10; // Doğru kelime için skor artışı
+                    currentWordIndex++;
+                    userInput.value = "";  // Kullanıcı girişini temizle
+                    if (currentWordIndex < currentSentence.length) {
+                        updateDisplay();
+                    } else {
+                        pickNewSentence();
+                    }
+                } else if (!currentSentence[currentWordIndex].startsWith(userInputValue)) {
+                    userInput.className = "wrong";
+                } else {
+                    userInput.className = "correct";
+                }
+            }
+
+            function startGame() {
+                timer = parseInt(timeSelect.value) * 60; 
+                updateTimerDisplay();
+                timerInterval = setInterval(updateTimer, 1000);
+                pickNewSentence();
+                userInput.disabled = false;
+                startButton.disabled = true;
+                timeSelect.disabled = true;
+                testResultForm.style.display = 'none'; 
+                score = 0; 
+            }
+
+            function endGame() {
+                clearInterval(timerInterval);
+                userInput.disabled = true;
+                startButton.disabled = false;
+                timeSelect.disabled = false;
+                feedback.textContent = "Test tamamlandı!";
+                testResultForm.style.display = 'block'; 
+                document.getElementById('score').value = score; 
+            }
+
+            function updateTimer() {
+                if (timer > 0) {
+                    timer--;
+                    updateTimerDisplay();
+                } else {
+                    endGame();
+                }
+            }
+
+            function updateTimerDisplay() {
+                const minutes = Math.floor(timer / 60);
+                const seconds = timer % 60;
+                timerElement.textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+            }
+
+            userInput.addEventListener('input', checkInput);
+            startButton.addEventListener('click', startGame);
+        });
+    </script>
+</body>
+</html>

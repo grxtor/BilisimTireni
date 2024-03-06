@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Anasayfa</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f4f4f4;
+            padding-top: 50px;
+        }
+        .navbar-custom {
+            background-color: #e67e22;
+        }
+        .navbar-custom .navbar-brand,
+        .navbar-custom .navbar-nav .nav-link {
+            color: white;
+        }
+        .custom-card {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px auto;
+            padding: 20px;
+            max-width: 900px;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        .text-side, .image-side {
+            flex: 1;
+        }
+        .text-side {
+            padding-right: 20px;
+        }
+        .image-side img {
+            max-width: 100%;
+            height: auto;
+            display: block; /* Sağa yaslamak için */
+        }
+        .footer-section {
+            padding: 10px 0;
+            background-color: #333;
+            color: white;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            .custom-card {
+                flex-direction: column;
+            }
+            .text-side {
+                padding-right: 0;
+                padding-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">BilişimTireni</a>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Ana Sayfa</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/login">Öğretmen Girişi</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/student_login">Öğrenci Girişi</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5 pt-5">
+        <div class="custom-card">
+            <div class="text-side">
+                <h1>Projemiz Hakkında</h1>
+                <p>Engelleri Aşan Teknoloji : </p>Özel Eğitim Sınıfları İçin Bilgisiyar Eğitimi Platformudur.</p>
+                <p>Öğrencilerin eğitimde karşılaştıkları zorlukları anlayıp, bu zorlukları gidermeye yönelik çözümler sunarak, öğrenme sürecini daha erişilebilir ve anlaşılır hale getirmeyi hedefliyoruz. Projemiz, teknolojinin gücünden faydalanarak eğitimde fırsat eşitliğini desteklemekte ve öğrencilerin öğrenme potansiyellerini en üst düzeye çıkarmayı amaçlamaktadır.</p>
+            </div>
+            <div class="image-side">
+                <img src="/static/images/bg.png" alt="Eğitimle İlgili Görsel">
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-section">
+        <p>© 2024 Eğitim Platformu. Tüm hakları saklıdır.</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

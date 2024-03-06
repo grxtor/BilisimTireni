@@ -1,0 +1,56 @@
+/* Genel sayfa stilleri */
+
+/* Test kutusu stilleri */
+.test-box {
+    background-color: #fff;
+    border-radius: 18px; /* Köşeleri daha da yuvarlak */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 18px; /* İç boşluk daha da küçültüldü */
+    display: flex;
+    margin: 10px;
+    align-items: center;
+    max-width: 450px; /* Kutu genişliği daha da küçültüldü */
+    flex-direction: row; /* İçerikler yatay olarak düzenlenir */
+}
+
+.test-preview {
+    width: 50%; /* Resim genişliği azaltıldı */
+    flex-shrink: 0;
+    margin-right: 8px; /* Resim ile buton arasında daha az boşluk */
+}
+
+.test-info {
+    width: 80%; /* Bilgi alanı genişliği artırıldı */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+
+.test-info h2, .test-info p {
+    margin: 3px; /* Üst ve alt boşluklar daha da azaltıldı */
+    font-size: 1em; /* Yazı tipi boyutu küçültüldü */
+}
+
+img {
+    max-width: 50%;
+    height: auto;
+    border-radius: 4px; /* Resmin köşeleri daha az yuvarlak */
+}
+
+.test-info button {
+    background-color: #007bff;
+    color: #fff;
+    margin-top: 30px;
+    border: none;
+    padding: 2px 4px; /* Butonun iç boşluğu daha da küçültüldü */
+    border-radius: 4px; /* Butonun köşeleri daha az yuvarlak */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1em; /* Buton yazı tipi boyutu küçültüldü */
+}
+
+.test-info button:hover {
+    background-color: #0056b3;
+}

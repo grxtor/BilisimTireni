@@ -1,0 +1,38 @@
+.train-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f4f4f4; /* Arka plan rengi */
+  padding: 20px; /* Çevresindeki boşluk */
+  border-radius: 15px; /* Kenar yuvarlaklığı */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Gölge efekti */
+  margin: 20px; /* Üst ve alttaki diğer elementlerle arasındaki mesafe */
+  overflow-x: auto; /* Yatay kaydırmayı etkinleştir */
+}
+
+.vagon-container {
+  display: flex;
+}
+
+.train-image {
+  max-width: 150px; /* Tren resminin boyutunu büyüt */
+  height: auto;
+  margin-left: 15px; /* Tren ile vagonlar arasındaki mesafe */
+}
+
+.vagon {
+  margin-right: 15px; /* Vagonlar arasındaki mesafe */
+  position: relative; /* Vagon etiketi üzerinde konumlandırma yapmak için */
+}
+
+.vagon img {
+  width: 100px; /* Vagon resimlerinin boyutunu büyüt */
+  height: auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animasyon efektleri */
+  border-radius: 10px; /* Kenar yuvarlaklığı */
+}
+
+.vagon img:hover {
+  transform: scale(1.15); /* Resmi büyüt */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Gölge efekti */
+}

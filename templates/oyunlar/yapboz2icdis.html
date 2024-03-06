@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Öğrenci Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/testler.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ff8c00; /* Turuncu */
+            --text-color: #fff;
+            --background-color: #ff8c00;
+            --active-color: #e67e22; /* Aktif öğe rengi */
+            --hover-color: #ff7f00;
+        }
+        .test-preview {
+            max-width: 50%; 
+            height: auto; 
+            border-radius: 8px; 
+        }
+
+        .sidebar {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            padding-left: 0;
+            min-height: 100vh;
+            width: 250px;
+            position: fixed;
+        }
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+        }
+        .box {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .box-header {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .game-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+        }
+  .progress {
+    height: 20px; /* İstediğiniz yüksekliği belirleyin */
+    background-color: #e9ecef;
+    border-radius: 15px; /* Köşeleri yuvarlaklaştır */
+    overflow: hidden; /* Taşan içeriği gizle */
+    margin-top: 20px; /* Üstten boşluk */
+}
+
+.progress-bar {
+    font-size: 16px; /* Yazı boyutu */
+    line-height: 20px; /* Metni dikey olarak ortala */
+    color: white; /* Metin rengi */
+    background-color: var(--primary-color); /* Progress bar rengi */
+    text-align: center; /* Yazıyı bar'ın ortasına hizala */
+    transition: width 0.5s ease-in-out; /* Animasyon */
+}
+
+.profile-pic {
+    
+    background-size: cover;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin: 20px auto;
+    background-image: url('/static/images/erkek.png');
+}
+.profilek-pic {
+    
+    background-size: cover;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin: 20px auto;
+    background-image: url('/static/images/kız.png');
+}
+.student-info {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.points-badge {
+    font-size: 16px;
+    color: var(--text-color);
+    background-color: #666;
+    border-radius: 15px;
+    padding: 5px 10px;
+    margin: 10px 0;
+    display: inline-block;
+}
+.student-name {
+    font-size: 18px;
+    margin: 5px 0;
+}
+.school-name {
+    font-size: 16px;
+    margin: 5px 0;
+}
+.menu-item {
+    display: block;
+    padding: 12px 20px;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+.menu-item:hover, .menu-item.active {
+    background-color: var(--active-color);
+    text-decoration: none; /* Bu, alt çizgiyi kaldıracaktır */
+}
+.menu-item:not(.active):hover {
+    background-color: var(--hover-color);
+}
+        .menu-item.sınavlar {
+            background: url('/static/images/vagon2.png') no-repeat center left;
+            background-size: 20%;
+            display: flex;
+            align-items: center;
+            height: 60px;
+            color: var(--text-color);
+            font-size: 14px;
+            text-shadow: 1px 1px 2px #000;
+            border-radius: 5px;
+            margin: 5px 0;
+            padding-left: 60px;
+            transition: background-color 0.3s;
+        }
+        .menu-item.sayfam {
+            background: url('/static/images/tren.jpg') no-repeat center left;
+            background-size: 25%;
+            display: flex;
+            align-items: center;
+            height: 60px;
+            color: var(--text-color);
+            font-size: 14px;
+            text-shadow: 1px 1px 2px #000;
+            border-radius: 5px;
+            margin: 5px 0;
+            padding-left: 60px;
+            transition: background-color 0.3s;
+        }
+        .menu-icon {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+        }
+        .ders-container {
+           display: flex;
+           padding: 20px 0;
+        }
+
+        .test-box {
+           min-width: 200px; /* Her kutunun minimum genişliği */
+           margin-right: 20px; /* Kutular arası boşluk */
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <!-- Profil resmi -->
+        {% if student_info['cinsiyet'] == 'Erkek' %}
+        <div class="profile-pic"></div>
+        <!-- Öğrenci bilgileri -->
+        {% endif %}
+        {% if student_info['cinsiyet'] == 'Kız' %}
+        <div class="profilek-pic"></div>
+        <!-- Öğrenci bilgileri -->
+        {% endif %}
+        <div class="student-info">
+            <div class="points-badge">Puanım :{{ student_info['new_points'] }}</div>
+            <div class="student-name">{{ student_info['student_name'] }}</div>
+            <div class="school-name">Sınıfım : {{ student_info['class_name'] }}</div>
+        </div>
+        <a href="/student_dashboard" class="menu-item sayfam">Sayfam</a>
+        <a href="/lessons" class="menu-item sınavlar">Dersler</a>
+        <a href="/oyunlar" class="menu-item sınavlar">Oyunlar</a>
+    </div>
+    <div class="content">
+        <div class="test-container">
+            <h2>Yapboz Oyununu Yapınız.</h2>
+            <iframe src="https://learningapps.org/watch?v=p34xz6nr324" style="border:0;width:100%;height:500px" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

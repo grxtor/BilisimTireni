@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Balon Patlatma Oyunu</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #adebeb;
+        }
+        #oyunAlani {
+            width: 80%;
+            height: 80vh;
+            position: relative;
+            border: 3px solid #000;
+            background-color: #e6ffff;
+            overflow: hidden;
+        }
+        .balon {
+            position: absolute;
+            bottom: -100px;
+            width: 50px;
+            height: 70px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            transition: bottom 0.5s;
+        }
+        #skor {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #000;
+        }
+        #sure {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 24px;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div id="oyunAlani">
+        <div id="skor">Skor: 0</div>
+        <div id="sure">Süre: 60</div>
+    </div>
+
+    <script>
+        let skor = 0;
+        let oyunSuresi = 60;
+
+        function balonOlustur() {
+            const oyunAlani = document.getElementById('oyunAlani');
+            const balon = document.createElement('div');
+            balon.classList.add('balon');
+            balon.style.backgroundImage = src='static/images/balon' + (Math.floor(Math.random() * 4) + 1) + '.png")';
+            balon.style.left = Math.random() * (oyunAlani.offsetWidth - 50) + 'px';
+
+            balon.addEventListener('click', function() {
+                skor++;
+                document.getElementById('skor').textContent = 'Skor: ' + skor;
+                balon.remove();
+            });
+
+            oyunAlani.appendChild(balon);
+
+            let balonHizi = Math.random() * 2 + 3;
+            function hareketEttir() {
+                let alt = parseInt(window.getComputedStyle(balon).getPropertyValue('bottom'));
+                if (alt < oyunAlani.offsetHeight) {
+                    balon.style.bottom = alt + balonHizi + 'px';
+                    requestAnimationFrame(hareketEttir);
+                } else {
+                    balon.remove();
+                }
+            }
+            hareketEttir();
+        }
+
+        function oyunuBaslat() {
+            let sure = oyunSuresi;
+            document.getElementById('sure').textContent = 'Süre: ' + sure;
+            
+            let oyunZamani = setInterval(() => {
+                if (sure > 0) {
+                    sure--;
+                    document.getElementById('sure').textContent = 'Süre: ' + sure;
+                } else {
+                    clearInterval(oyunZamani);
+                    alert("Oyun Bitti! Skorunuz: " + skor);
+                }
+            }, 1000);
+
+            setInterval(balonOlustur, 800);
+        }
+
+        oyunuBaslat();
+    </script>
+</body>
+</html>

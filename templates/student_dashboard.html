@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Öğrenci Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/testler.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+
+                /* Genel ve Modal için ek CSS stilleri */
+                .modal-content {
+            transition: transform 0.3s ease-out;
+        }
+        .modal-dialog {
+            display: flex;
+            align-items: center;
+            min-height: calc(100% - 1rem);
+        }
+        .modal-body {
+            position: relative;
+            padding: 20px;
+        }
+
+        /* Genel sayfa stilleri */
+
+/* Test kutusu stilleri */
+.test-box {
+    background-color: #fff;
+    border-radius: 18px; /* Köşeleri daha da yuvarlak */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 18px; /* İç boşluk daha da küçültüldü */
+    display: flex;
+    margin: 10px;
+    align-items: center;
+    max-width: 450px; /* Kutu genişliği daha da küçültüldü */
+    flex-direction: row; /* İçerikler yatay olarak düzenlenir */
+}
+
+.test-preview {
+    width: 50%; /* Resim genişliği azaltıldı */
+    flex-shrink: 0;
+    margin-right: 8px; /* Resim ile buton arasında daha az boşluk */
+}
+
+.test-info {
+    width: 80%; /* Bilgi alanı genişliği artırıldı */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+
+.test-info h2, .test-info p {
+    margin: 3px; /* Üst ve alt boşluklar daha da azaltıldı */
+    font-size: 1em; /* Yazı tipi boyutu küçültüldü */
+}
+
+img {
+    max-width: 50%;
+    height: auto;
+    border-radius: 4px; /* Resmin köşeleri daha az yuvarlak */
+}
+
+.test-info button {
+    background-color: #007bff;
+    color: #fff;
+    margin-top: 30px;
+    border: none;
+    padding: 2px 4px; /* Butonun iç boşluğu daha da küçültüldü */
+    border-radius: 4px; /* Butonun köşeleri daha az yuvarlak */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1em; /* Buton yazı tipi boyutu küçültüldü */
+}
+
+.test-info button:hover {
+    background-color: #0056b3;
+}
+
+        :root {
+            --primary-color: #ff8c00; /* Turuncu */
+            --text-color: #fff;
+            --background-color: #ff8c00;
+            --active-color: #e67e22; /* Aktif öğe rengi */
+            --hover-color: #ff7f00;
+        }
+        .test-preview {
+            max-width: 50%; 
+            height: auto; 
+            border-radius: 8px; 
+        }
+
+        .sidebar {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            padding-left: 0;
+            min-height: 100vh;
+            width: 250px;
+            position: fixed;
+        }
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+        }
+        .box {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .box-header {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .game-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+        }
+  .progress {
+    height: 20px; /* İstediğiniz yüksekliği belirleyin */
+    background-color: #e9ecef;
+    border-radius: 15px; /* Köşeleri yuvarlaklaştır */
+    overflow: hidden; /* Taşan içeriği gizle */
+    margin-top: 20px; /* Üstten boşluk */
+}
+
+.progress-bar {
+    font-size: 20px; /* Yazı boyutu */
+    line-height: 20px; /* Metni dikey olarak ortala */
+    color: white; /* Metin rengi */
+    background-color: var(--primary-color); /* Progress bar rengi */
+    text-align: center; /* Yazıyı bar'ın ortasına hizala */
+    transition: width 0.5s ease-in-out; /* Animasyon */
+}
+
+.profile-pic {
+    
+    background-size: cover;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin: 20px auto;
+    background-image: url('/static/images/erkek.png');
+}
+.profilek-pic {
+    
+    background-size: cover;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin: 20px auto;
+    background-image: url('/static/images/kız.png');
+}
+.student-info {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.points-badge {
+    font-size: 24px;
+    color: var(--text-color);
+    background-color: #666;
+    border-radius: 15px;
+    padding: 5px 10px;
+    margin: 10px 0;
+    display: inline-block;
+}
+.student-name {
+    font-size: 24px;
+    margin: 5px 0;
+}
+.school-name {
+    font-size: 24px;
+    margin: 5px 0;
+}
+.menu-item {
+    display: block;
+    padding: 12px 20px;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+.menu-item:hover, .menu-item.active {
+    background-color: var(--active-color);
+    text-decoration: none; /* Bu, alt çizgiyi kaldıracaktır */
+}
+.menu-item:not(.active):hover {
+    background-color: var(--hover-color);
+}
+        .menu-item.sınavlar {
+            background: url('/static/images/vagon2.png') no-repeat center left;
+            background-size: 20%;
+            display: flex;
+            align-items: center;
+            height: 60px;
+            color: var(--text-color);
+            font-size: 20px;
+            text-shadow: 1px 1px 2px #000;
+            border-radius: 5px;
+            margin: auto;
+            padding-left: 60px;
+            transition: background-color 0.3s;
+        }
+        .menu-item.sayfam {
+            background: url('/static/images/tren.jpg') no-repeat center left;
+            background-size: 25%;
+            display: flex;
+            align-items: center;
+            height: 60px;
+            color: var(--text-color);
+            font-size: 20px;
+            text-shadow: 1px 1px 2px #000;
+            border-radius: 5px;
+            margin: 5px 0;
+            padding-left: 60px;
+            transition: background-color 0.3s;
+        }
+        .menu-icon {
+            font-size: 20px;
+            margin: auto;
+        }
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+        }
+        .ders-container {
+           display: flex;
+           padding: 20px 0;
+        }
+
+.test-box {
+    min-width: 200px; /* Her kutunun minimum genişliği */
+    margin-right: 20px; /* Kutular arası boşluk */
+}
+        /* Diğer stil tanımlamalarınız burada yer alacak */
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <!-- Profil resmi -->
+        {% if student_info['cinsiyet'] == 'Erkek' %}
+        <div class="profile-pic"></div>
+        <!-- Öğrenci bilgileri -->
+        {% endif %}
+        {% if student_info['cinsiyet'] == 'Kız' %}
+        <div class="profilek-pic"></div>
+        <!-- Öğrenci bilgileri -->
+        {% endif %}
+        <div class="student-info">
+            <div class="points-badge">Puanım :{{ student_info['new_points'] }}</div>
+            <div class="student-name">{{ student_info['student_name'] }}</div>
+            <div class="school-name">Sınıfım : {{ student_info['class_name'] }}</div>
+        </div>
+        <a href="/student_dashboard" class="menu-item sayfam">Sayfam</a>
+        <a href="/lessons" class="menu-item sınavlar">Dersler</a>
+        <a href="/oyunlar" class="menu-item sınavlar">Oyunlar</a>
+        <a href="/send_mail" class="menu-item sınavlar">İletişim</a>
+        <a class="menu-item sınavlar" data-toggle="modal" data-target="#settingsModal">Font Büyüklüğü</a>
+        <a href="/oyunlar" class="menu-item sınavlar">Görüntülü Konuşma</a>
+    </div>
+    <div class="content">
+        <div class="box">
+            <div class="box-header">Oyunlar</div>
+            <div class="game-container">
+            {% if student_info['disability'] != 'Görme Engelli' %}
+            <div class="test-box">
+                <img src="{{ url_for('static', filename='images/testonizleme/balonpatlatma.png') }}" alt="Test Önizlemesi" class="test-preview">
+                <div class="test-info">
+                    <h2>Balon Patlatma Oyunu</h2>
+                    <p>Mouse Kullanmayı Öğretir</p>
+                    <button onclick="mouseoyun()">Oyuna Başla</button>
+                </div>
+            </div>
+            <div style="margin-bottom: 20px;"></div>
+            {% endif %}
+            {% if student_info['disability'] != 'Görme Engelli' %}
+            <div class="test-box">
+                <img src="{{ url_for('static', filename='images/testonizleme/yapbozonizleme.png') }}" alt="Test Önizlemesi" class="test-preview">
+                <div class="test-info">
+                    <h2>Bilgisayarın Temel Parçaları</h2>
+                    {% if student_info['yapboz1'] == '0' %}
+                    <button onclick="confirmStartTest1()">Teste Başla</button>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 0%" id="yapbozProgress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                    </div>
+                    {% endif %}
+                    {% if student_info['yapboz1'] != '0' %}
+                    <button onclick="confirmStartTest1()">Testi Yeniden Yap</button>
+                    <div class="progress-container">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 100%" id="yapbozProgress" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Tamamen Yapılmış 100%</div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            {% endif %}
+            <div class="test-box">
+                <img src="{{ url_for('static', filename='images/girisc.png') }}" alt="Test Önizlemesi" class="test-preview">
+                <div class="test-info">
+                    <h2>Giriş Çıkış Elemanları</h2>
+                    {% if student_info['yapboz1'] == '0' %}
+                    <button onclick="confirmStartTest1()">Teste Başla</button>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 0%" id="yapbozProgress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                    </div>
+                    {% endif %}
+                    {% if student_info['yapboz1'] != '0' %}
+                    <button onclick="confirmStartTest1()">Testi Yeniden Yap</button>
+                    <div class="progress-container">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 100%" id="yapbozProgress" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Tamamen Yapılmış 100%</div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+        </div>
+    </div>
+   
+    <div class="box">
+        <div class="box-header">Dersler</div>
+        <div class="ders-container">
+        <div class="test-box">
+        <img src="{{ url_for('static', filename='images/dersonizleme/ders1.png') }}" alt="Test Önizlemesi" class="test-preview">
+        <div class="test-info">
+            <h2>Bilişim Teknolojilerinin Günlük Yaşamdaki Amacı</h2>
+            <button onclick="ilkders()">Derse Başla</button>
+        </div>
+        </div>
+
+        <div class="ders-container">
+            <div class="test-box">
+            <img src="{{ url_for('static', filename='images/dersonizleme/ders1.png') }}" alt="Test Önizlemesi" class="test-preview">
+            <div class="test-info">
+                <h2>Dosya Yönetimi</h2>
+                <button onclick="ilkders()">Derse Başla</button>
+            </div>
+            </div>
+            </div>
+
+            <div class="ders-container">
+                <div class="test-box">
+                <img src="{{ url_for('static', filename='images/dersonizleme/ders1.png') }}" alt="Test Önizlemesi" class="test-preview">
+                <div class="test-info">
+                    <h2>Etik Değerler</h2>
+                    <button onclick="ilkders()">Derse Başla</button>
+                </div>
+                </div>
+                </div>     
+    </div>
+    </div>
+
+    <div class="box">
+        <div class="box-header">Klavye Alıştırmaları</div>
+        <div class="ders-container">
+        <div class="test-box">
+        <img src="{{ url_for('static', filename='images/testonizleme/klavye.png') }}" alt="Test Önizlemesi" class="test-preview">
+        <div class="test-info">
+            <h2>Klavye Alıştırma</h2>
+            <p>Klavye Kullanımını Geliştirir.</p>
+            <button onclick="klavye()">Alıştırmaya Başla</button>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+    </div>
+    
+    <!-- Ayarlar Modal Penceresi -->
+    <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="settingsModalLabel">Font Ayarı</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="font-size">Font Büyüklüğü</label>
+                            <input type="range" class="form-control-range" id="font-size" min="10" max="24" value="16">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                    <button type="button" class="btn btn-primary" onclick="applyFontSize()">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+function applyFontSize() {
+    var fontSize = document.getElementById('font-size').value;
+    document.body.style.fontSize = fontSize + 'px';
+    $('#settingsModal').modal('hide'); // Modal pencereyi kapat
+}
+
+$(document).ready(function() {
+    // Bootstrap modal event handlers here if needed
+});
+        function confirmStartTest() {
+            var confirmed = confirm("Gerçekten başlamak istiyor musunuz?");
+            if (confirmed) {
+                window.location.href = "{{ url_for('ilktest') }}"; // Düzgün Oturma Testi URL'si
+            }
+        }
+        function confirmStartTest1() {
+            var confirmed1 = confirm("Gerçekten başlamak istiyor musunuz?");
+            if (confirmed1) {
+                window.location.href = "{{ url_for('yapboz') }}"; // Bilgisayarın Temel Parçaları Testi URL'si
+            }
+        }
+        function confirmStartTest2() {
+            var confirmed2 = confirm("Gerçekten başlamak istiyor musunuz?");
+            if (confirmed2) {
+                window.location.href = "{{ url_for('test2') }}"; // Bilgisayarın Temel Parçaları Testi URL'si
+            }
+        }
+        function mouseoyun() {
+            var balon = confirm("Gerçekten başlamak istiyor musunuz?");
+            if (balon) {
+                window.location.href = "{{ url_for('balonpatlatma') }}"; // Bilgisayarın Temel Parçaları Testi URL'si
+            }
+        }
+
+        function ilkders() {
+            var ders1 = confirm("Gerçekten başlamak istiyor musunuz?");
+            if (ders1) {
+                window.location.href = "{{ url_for('ders1') }}"; // Bilgisayarın Temel Parçaları Testi URL'si
+            }
+        }
+
+        function klavye() {
+            var klavye = confirm("Gerçekten başlamak istiyor musunuz?");
+            if (klavye) {
+                window.location.href = "{{ url_for('klavye') }}"; // Bilgisayarın Temel Parçaları Testi URL'si
+            }
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Yapboz Oyunu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/yapboz.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ff8c00; /* Turuncu */
+            --text-color: #fff;
+            --background-color: #ff8c00;
+            --active-color: #e67e22; /* Aktif öğe rengi */
+            --hover-color: #ff7f00;
+        }
+        .test-preview {
+            max-width: 50%; 
+            height: auto; 
+            border-radius: 8px; 
+        }
+
+        .sidebar {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            padding-left: 0;
+            min-height: 100vh;
+            width: 250px;
+            position: fixed;
+        }
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+        }
+        .box {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .box-header {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .game-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+        }
+  .progress {
+    height: 20px; /* İstediğiniz yüksekliği belirleyin */
+    background-color: #e9ecef;
+    border-radius: 15px; /* Köşeleri yuvarlaklaştır */
+    overflow: hidden; /* Taşan içeriği gizle */
+    margin-top: 20px; /* Üstten boşluk */
+}
+
+.progress-bar {
+    font-size: 16px; /* Yazı boyutu */
+    line-height: 20px; /* Metni dikey olarak ortala */
+    color: white; /* Metin rengi */
+    background-color: var(--primary-color); /* Progress bar rengi */
+    text-align: center; /* Yazıyı bar'ın ortasına hizala */
+    transition: width 0.5s ease-in-out; /* Animasyon */
+}
+
+.profile-pic {
+    
+    background-size: cover;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin: 20px auto;
+    background-image: url('/static/images/erkek.png');
+}
+.profilek-pic {
+    
+    background-size: cover;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin: 20px auto;
+    background-image: url('/static/images/kız.png');
+}
+.student-info {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.points-badge {
+    font-size: 16px;
+    color: var(--text-color);
+    background-color: #666;
+    border-radius: 15px;
+    padding: 5px 10px;
+    margin: 10px 0;
+    display: inline-block;
+}
+.student-name {
+    font-size: 18px;
+    margin: 5px 0;
+}
+.school-name {
+    font-size: 16px;
+    margin: 5px 0;
+}
+.menu-item {
+    display: block;
+    padding: 12px 20px;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+.menu-item:hover, .menu-item.active {
+    background-color: var(--active-color);
+    text-decoration: none; /* Bu, alt çizgiyi kaldıracaktır */
+}
+.menu-item:not(.active):hover {
+    background-color: var(--hover-color);
+}
+        .menu-item.sınavlar {
+            background: url('/static/images/vagon2.png') no-repeat center left;
+            background-size: 20%;
+            display: flex;
+            align-items: center;
+            height: 60px;
+            color: var(--text-color);
+            font-size: 14px;
+            text-shadow: 1px 1px 2px #000;
+            border-radius: 5px;
+            margin: 5px 0;
+            padding-left: 60px;
+            transition: background-color 0.3s;
+        }
+        .menu-item.sayfam {
+            background: url('/static/images/tren.jpg') no-repeat center left;
+            background-size: 25%;
+            display: flex;
+            align-items: center;
+            height: 60px;
+            color: var(--text-color);
+            font-size: 14px;
+            text-shadow: 1px 1px 2px #000;
+            border-radius: 5px;
+            margin: 5px 0;
+            padding-left: 60px;
+            transition: background-color 0.3s;
+        }
+        .menu-icon {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+        }
+        .ders-container {
+           display: flex;
+           padding: 20px 0;
+        }
+
+        .test-box {
+           min-width: 200px; /* Her kutunun minimum genişliği */
+           margin-right: 20px; /* Kutular arası boşluk */
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <!-- Profil resmi -->
+        {% if student_info['cinsiyet'] == 'Erkek' %}
+        <div class="profile-pic"></div>
+        <!-- Öğrenci bilgileri -->
+        {% endif %}
+        {% if student_info['cinsiyet'] == 'Kız' %}
+        <div class="profilek-pic"></div>
+        <!-- Öğrenci bilgileri -->
+        {% endif %}
+        <div class="student-info">
+            <div class="points-badge">Puanım :{{ student_info['new_points'] }}</div>
+            <div class="student-name">{{ student_info['student_name'] }}</div>
+            <div class="school-name">Sınıfım : {{ student_info['class_name'] }}</div>
+        </div>
+        <a href="/student_dashboard" class="menu-item sayfam">Sayfam</a>
+        <a href="/lessons" class="menu-item sınavlar">Dersler</a>
+        <a href="/oyunlar" class="menu-item sınavlar">Oyunlar</a>
+    </div>
+    
+    <div class="container">
+        <h1 class="title">Yapboz Oyunu</h1>
+        <div class="puzzle-container" id="puzzle-container">
+            <!-- Yapboz parçaları -->
+            <img src="{{ url_for('static', filename='images/klavye.png') }}" class="puzzle-piece" id="klavye-piece" draggable="true"></img>
+            <img src="{{ url_for('static', filename='images/ekran.png') }}" class="puzzle-piece" id="ekran-piece" draggable="true"></img>
+            <img src="{{ url_for('static', filename='images/mouse.png') }}" class="puzzle-piece" id="mouse-piece" draggable="true"></img>
+
+            <!-- Yerleştirme alanları -->
+            <div class="drop-area" id="klavye-area" data-matching="klavye-piece"><span>Klavye</span></div>
+            <div class="drop-area" id="ekran-area" data-matching="ekran-piece"><span>Ekran</span></div>
+            <div class="drop-area" id="mouse-area" data-matching="mouse-piece"><span>Mouse</span></div>
+        </div>
+        <div class="buttons-container">
+            <button class="test-button" onclick="previousPuzzle()">Önceki Yapboz</button>
+            <button class="test-button" onclick="nextPuzzle()">Sonraki Yapboz</button>
+            <button class="test-button finish-button" onclick="completeYapboz1()">Yapboz Oyununu Bitir</button>
+        </div>
+    </div>
+    <script>
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('/get_student_info')
+    .then(response => response.json())
+    .then(data => {
+        if (!data.error) {
+            document.getElementById('studentName').innerText = data.student_name;
+            document.getElementById('currentScore').innerText = data.new_points;
+            document.getElementById('disabilityStatus').innerText = data.disability;
+        }
+    })
+    .catch(error => console.error('Hata:', error));
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Öğrenci ID'sini Flask template'inden al
+    const studentId = "{{ student_info['student_id'] }}";
+
+    function completeYapboz1() {
+        fetch('/complete_yapboz1', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                student_id: studentId
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Yapboz başarıyla tamamlandı.');
+                // İşlem başarılıysa ek işlemler burada yapılabilir.
+            } else {
+                alert('Bir hata oluştu: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Hata:', error);
+        });
+    }
+    
+    // Butona tıklandığında `completeYapboz1` fonksiyonunu çalıştır
+    document.querySelector('.finish-button').addEventListener('click', completeYapboz1);
+});
+    // Başlangıç zamanını tutmak için değişkenler
+var startTime;
+var endTime;
+
+// Başlangıç zamanını kaydeden fonksiyon
+function startTimer() {
+    startTime = new Date();
+}
+
+// Bitiş zamanını kaydeden ve sonucu hesaplayan fonksiyon
+function endTimer() {
+    endTime = new Date();
+    var timeDiff = endTime - startTime; // milliseconds cinsinden süre farkı
+
+    // Süreyi dakika ve saniyeye çevirme
+    var minutes = Math.floor(timeDiff / 60000);
+    var seconds = ((timeDiff % 60000) / 1000).toFixed(0);
+
+    // Kaç denemede yapıldığını hesaplama
+    var attempts = document.querySelectorAll('.puzzle-piece').length; // Toplam parça sayısı
+
+    // Sonucu gösterme
+    alert("Tebrikler! Yapboz Oyununu tamamladınız.\nSüre: " + minutes + " dakika " + seconds + " saniye\nDeneme Sayısı: " + attempts);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const pieces = document.querySelectorAll('.puzzle-piece');
+  
+    pieces.forEach(piece => {
+      piece.addEventListener('dragstart', function(e) {
+        e.dataTransfer.setData('text/plain', piece.id);
+      });
+    });
+  
+    const matchingAreas = document.querySelectorAll('.drop-area');
+    matchingAreas.forEach(area => {
+      area.addEventListener('dragover', e => e.preventDefault());
+  
+      area.addEventListener('drop', function(e) {
+        e.preventDefault();
+        const pieceId = e.dataTransfer.getData('text');
+        const matchingPieceId = this.getAttribute('data-matching');
+        const piece = document.getElementById(pieceId);
+        if (pieceId === matchingPieceId) {
+          piece.style.pointerEvents = 'none'; // Parçayı tekrar sürüklenemez yap
+          this.innerHTML = ''; // Metni temizle
+          this.appendChild(piece); // Parçayı yerleştirme alanına ekle
+          piece.classList.add('correct'); // Parçayı yeşil yap
+        } else {
+          piece.classList.add('shake'); // Yanlış yerleştirme için titreme efekti
+          setTimeout(() => {
+            piece.classList.remove('shake');
+          }, 500);
+        }
+      });
+    });
+  });
+
+var currentPuzzleIndex = 0; // Şu anki yapbozun index'ini tutacak değişken
+
+var puzzles = [
+    // İlk yapbozun bilgileri
+    {
+        pieces: document.querySelectorAll('.puzzle-piece'),
+        matchingAreas: document.querySelectorAll('.drop-area')
+    },
+    // İkinci yapbozun bilgileri
+    {
+        pieces: document.querySelectorAll('.puzzle-piece2'), // İkinci yapboz parçalarının sınıfını değiştirmen gerekebilir
+        matchingAreas: document.querySelectorAll('.drop-area2') // İkinci yapboz yerleştirme alanlarının sınıfını değiştirmen gerekebilir
+    },
+    // Daha fazla yapboz eklemek istersen bu şablonu kullanabilirsin
+];
+
+function nextPuzzle() {
+    if (currentPuzzleIndex < puzzles.length - 1) {
+        currentPuzzleIndex++;
+        loadPuzzle();
+    } else {
+        alert("Son yapbozdasınız.");
+    }
+}
+
+function previousPuzzle() {
+    if (currentPuzzleIndex > 0) {
+        currentPuzzleIndex--;
+        loadPuzzle();
+    } else {
+        alert("İlk yapbozdasınız.");
+    }
+}
+
+function loadPuzzle() {
+    // Şu anki yapbozu gizle
+    var currentPuzzle = puzzles[currentPuzzleIndex];
+    currentPuzzle.pieces.forEach(piece => piece.style.display = 'none');
+    currentPuzzle.matchingAreas.forEach(area => area.style.display = 'none');
+
+    // Yeni yapbozu göster
+    var newPuzzle = puzzles[currentPuzzleIndex];
+    newPuzzle.pieces.forEach(piece => piece.style.display = 'block');
+    newPuzzle.matchingAreas.forEach(area => area.style.display = 'block');
+}
+
+    </script>
+
+</body>
+</html>

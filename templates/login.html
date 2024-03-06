@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Giriş Yap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- LINEARICONS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fonts/linearicons/style.css') }}"> 
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- MENÜ CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+</head>
+<body>
+    <!-- Menü -->
+    {% include 'öğretmen/base.html' %}
+    <div class="wrapper">
+        <div class="inner">
+            <form method="POST" action="/login">
+                <h3>Giriş Yap / Öğretmenler İçin</h3>
+                <div class="form-holder">
+                    <span class="lnr lnr-user"></span>
+                    <input type="text" class="form-control" placeholder="Kullanıcı Adı" id="username" name="username" required>
+                </div>
+                <div class="form-holder">
+                    <span class="lnr lnr-lock"></span>
+                    <input type="password" class="form-control" placeholder="Şifre" id="password" name="password" required>
+                </div>
+                <div class="g-recaptcha" data-sitekey="6LcWingpAAAAAEM1PX_nEfmkNhaFUgNF4qd6ECa9" style="margin-bottom: 20px;"></div>
+                <button type="submit">
+                    <span>Giriş Yap</span>
+                </button>
+            </form>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</body>
+</html>

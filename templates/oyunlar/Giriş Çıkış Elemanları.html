@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Eşleştirme Oyunu - Giriş Çıkış Elemanları</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/soru.css') }}">
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+    <style>
+        :root {
+            --primary-color: #ff8c00; /* Turuncu */
+            --text-color: #fff;
+            --background-color: #ff8c00;
+            --hover-color: #ff7f00;
+        }
+        .sidebar {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            padding-left: 0; 
+            min-height: 100vh;
+            width: 250px;
+            position: fixed;
+        }
+        .profile-pic {
+            background-size: cover;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            margin: 20px auto;
+        }
+        .menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* Menü öğelerini sola hizala */
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: bold;
+            padding-left: 20px; /* Sol iç boşluğu ekle */
+            width: 100%; /* Menü öğesinin genişliğini genişlet */
+            box-sizing: border-box; /* Padding'i genişliğe dahil et */
+        }
+        .menu-item:hover, .menu-item.active {
+            background-color: var(--hover-color);
+        }
+        .menu-item.sınavlar {
+            background: url('/static/images/vagon2.png') no-repeat center left; /* Arka plan resmini sola hizala */
+            background-size: 20%; /* Arka plan resminin boyutunu ayarla */
+            display: flex;
+            align-items: center;
+            height: 60px;
+            font-size: 14px;
+            text-shadow: 1px 1px 2px #000;
+            border-radius: 5px;
+            margin: 5px 0; /* Üst ve alt marjin */
+            padding-left: 60px; /* İkon ve metin arasındaki boşluğu ayarla */
+        }
+        .menu-icon {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            background-color: #fff;
+            border-radius: 10px;
+        }
+        .lnr {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="profile-pic">
+        </div>
+        <div>
+            <h2>{{ student_info['student_name'] }}</h2>
+            <p>{{ student_info['school_name'] }}</p>
+            <p>Puan: {{ student_info['points'] }}</p>
+        </div>
+        <a href="#" class="menu-item sınavlar"></span> Sayfam</a>
+        <a href="/oyunlar" class="menu-item sınavlar"></span> OYUNLAR</a>
+    </div>
+    <div class="content">
+    <button id="speakBtn" class="btn btn-primary">Talimatları Sesli Dinle</button>
+
+        <div class="test-container">
+            <h2>Giriş Çıkış Elemanlarını Eşleştiriniz.</h2>
+            <iframe src="https://learningapps.org/watch?v=p6f908b2324" style="border:0px;width:100%;height:500px" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var speakBtn = document.getElementById('speakBtn');
+        speakBtn.addEventListener('click', function() {
+            var textToSpeak = 'Giriş Çıkış Elemanlarını Eşleştiriniz. Aşağıdaki oyunu oynamak için ekran okuyucunuzu kullanın.';
+            var msg = new SpeechSynthesisUtterance(textToSpeak);
+            window.speechSynthesis.speak(msg);
+        });
+    });
+</script>
+
+</body>
+</html>

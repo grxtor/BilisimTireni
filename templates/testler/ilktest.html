@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Düzgün Oturma Testi - Eğitim Platformu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/soru.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="content">
+        <form id="testResultForm" action="/submit_test" method="POST" style="display: none;">
+            <input type="hidden" name="score" id="testScore">
+        </form>
+        <div class="test-container">
+            <h2>1. Soru Hangisi Doğru Ve Sağlıklı Oturuştur ?</h2>
+            <div id="test-questions" class="test-questions">
+                <div class="question-header">
+                    <button class="sound-button" onclick="playSound('birincisoru.mp3')">
+                        🔊
+                    </button>
+                </div>
+                <div class="question-options">
+                    <button class="image-button" onclick="checkAnswer('correct', this)">
+                        <img src="{{ url_for('static', filename='images/ilktest/bozuk1.png') }}" alt="Düzgün Oturma">
+                    </button>
+                    <button class="image-button" onclick="checkAnswer('wrong', this)">
+                        <img src="{{ url_for('static', filename='images/ilktest/bozuk.png') }}" alt="Yanlış Oturma">
+                    </button>
+                    <button class="image-button" onclick="checkAnswer('wrong', this)">
+                        <img src="{{ url_for('static', filename='images/ilktest/duzgun.png') }}" alt="Bozuk Oturma">
+                    </button>
+
+                
+              </div>
+            </div>
+            <div class="video-container">
+                <video width="200" height="300" controls>
+                    <source src="{{ url_for('static', filename='videos/deneme1.mp4') }}" type="video/mp4">
+                </video>
+            </div>
+            <div class="test-buttons">
+                <button onclick="previousQuestion()" class="test-button">Önceki Soru</button>
+                <button onclick="nextQuestion()" class="test-button">Sonraki Soru</button>
+                <button onclick="finishTest()" class="test-button finish-button">Testi Bitir</button>
+            </div>
+        </div>
+    </div>
+    
+
+    <script>
+        var currentQuestionIndex = 0;
+        var testQuestions = [
+        { question: "Soru 1", answer: "correct" },
+        ];
+
+        var userAnswers = [];
+
+        function nextQuestion() {
+            if (currentQuestionIndex < testQuestions.length - 1) {
+                currentQuestionIndex++;
+            } else {
+                alert("Son sorudasınız.");
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+            } else {
+                alert("İlk sorudasınız.");
+            }
+        }
+
+
+
+        function checkAnswer(answer, button) {
+            // Önceki seçimi iptal et
+            var buttons = document.querySelectorAll('.image-button');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].style.backgroundColor = '';
+            }
+            // Yeni cevabı işaretle
+            userAnswers[currentQuestionIndex] = answer;
+            button.style.backgroundColor = 'green';
+        }
+
+        function finishTest() {
+            var score = calculateScore();
+            alert("Testi bitirdiniz. Puanınız: " + score);
+            document.getElementById('testScore').value = score;
+            document.getElementById('testResultForm').submit();
+
+            var buttons = document.querySelectorAll('.image-button');
+            for (var i = 0; i < buttons.length; i++) {
+                var answer = testQuestions[i].answer;
+                if (userAnswers[i] !== undefined && userAnswers[i] === answer) {
+                    buttons[i].style.backgroundColor = 'red';
+                } else {
+                    buttons[i].style.backgroundColor = 'green';
+                    
+                }
+            }
+
+            // Son cevabı kontrol et
+            var lastAnswer = userAnswers[userAnswers.length - 1];
+            if (lastAnswer !== undefined) {
+                if (lastAnswer === testQuestions[currentQuestionIndex].answer) {
+                    alert("Son cevabınız doğru!");
+                } else {
+                    alert("Son cevabınız yanlış!");
+                }
+            }
+        }
+
+        function calculateScore() {
+            var score = 0;
+            for (var i = 0; i < testQuestions.length; i++) {
+                if (userAnswers[i] === testQuestions[i].answer) {
+                    score++;
+                }
+            }
+            return score;
+        }
+        function playSound(soundFile) {
+         var audio = new Audio("{{ url_for('static', filename='sound/') }}" + soundFile);
+         audio.play();
+        }
+
+    </script>
+</body>
+</html>

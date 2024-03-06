@@ -1,0 +1,55 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #ececec;
+}
+#oyunKonteyner {
+    text-align: center;
+}
+#oyunAlanı {
+    width: 800px;
+    height: 600px;
+    position: relative;
+    overflow: hidden;
+    border: none;
+    background-color: #f0f0f0;
+    margin-top: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+.balon {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    border-radius: 50%;
+    cursor: pointer;
+    background-size: cover;
+}
+#skorPaneli {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+#baslaButonu {
+    font-size: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+#zamanCubugu {
+    width: 100%;
+    background-color: #ddd;
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+#ilerleme {
+    height: 100%;
+    background-color: #4caf50;
+    width: 0%;
+    border-radius: 10px;
+    transition: width 1s;
+}
