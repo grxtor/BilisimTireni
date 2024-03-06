@@ -1,32 +1,32 @@
-# Project Title
+# BilişimTireni
+-[BilişimTireni](https://bilisimtireni.org) Projesi Baştan Aşşağıya Özel Gereksinimli Çocukların/Öğrencilerin Bilişim Derslerini En İyi Şekilde Geçirmelerini Sağlaması İçin Tasarlandı.
+## Ana Amacı 
+Özel Gerekisinimli Öğrencilerin Bilişim Derslerini Kolaylaştırmak İçin Şuanlık Bir Program ve Yardımcı Olacak Bir Şey Olmadığından Dolayı Bu Boşluğu Kapatmak İçin Tasarlandı Diyebiliriz.
+## İçindekiler
 
-Brief description of the project.
+- [Hakkında](#hakkında)
+- [Özellikler](#özellikler)
+- [Başlarken](#başlarken)
+  - [Kurulum](#kurulum)
+  - [Kullanım](#kullanım)
+- [Katkıda Bulunma](#katkıda-bulunma)
+- [Lisans](#lisans)
 
-## Table of Contents
+## Hakkında
 
-- [About](#about)
-- [Features](#features)
-- [Getting Started](#getting-started)
-  - [Installation](#installation)
-  - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
+Projenin detaylı açıklaması. Projenin ne yaptığını, amacını ve önemini açıklayın.
 
-## About
+## Özellikler
 
-Detailed description of the project. Explain what the project does, its purpose, and its significance.
+- Projenin temel özelliklerini listele
+- Projeyi benzersiz kılan özellikleri vurgula
 
-## Features
+## Başlarken
 
-- List the key features of the project
-- Highlight what makes your project unique
+Projenin yerel makinede çalıştırılması için adımlar.
 
-## Getting Started
+### Kurulum
 
-Instructions on how to get the project up and running on the local machine.
-
-### Installation
-
-1. Clone the repository.
+1. Depoyu klonlayın.
    ```sh
-   git clone https://github.com/username/repository.git
+   git clone https://github.com/kullanıcıadı/repo.git
